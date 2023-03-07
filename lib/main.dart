@@ -20,9 +20,20 @@ class MyApp extends StatelessWidget {
           title: Text('Tarefas'),
         ),
         body: ListView(children: [
-          Task('Aprender Flutter'),
-          Task('Finalizar FF8'),
-          Task('Treinar a jogar de Jarvan'),
+          Task('Aprender Flutter',
+              'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large'),
+          Task('Finalizar FF8',
+              'https://upload.wikimedia.org/wikipedia/pt/thumb/5/58/FFVIII.jpg/300px-FFVIII.jpg'),
+          Task('Death Stranding',
+              'https://cdn1.epicgames.com/offer/0a9e3c5ab6684506bd624a849ca0cf39/EGS_DeathStrandingDirectorsCut_KOJIMAPRODUCTIONS_S4_1200x1600-5f99e16507795f9b497716b470cfd876'),
+          Task('Terminar Pequeno Príncipe',
+              'https://edipro.com.br/wp-content/uploads/2020/09/Pequeno-principe-O-grande-9788567097107-600x863.jpg'),
+          Task('Inglês',
+              'https://play-lh.googleusercontent.com/W7ati37w9D9qOPw4KXiRmWd3MNvW3mUFMcxRrDqCU9mq6FmQA0HyvYXTQiRLShASca8g'),
+          Task('Treinar a jogar de Jarvan',
+              'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/JarvanIV_30.jpg'),
+          Task('Academia',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJpc4cT9ij2jBsTiVXjwCw-cAOoxn1ceGC6A&usqp=CAU'),
         ]),
         floatingActionButton: FloatingActionButton(onPressed: () {}),
       ),
@@ -32,8 +43,9 @@ class MyApp extends StatelessWidget {
 
 class Task extends StatefulWidget {
   final String nome;
+  final String img;
 
-  const Task(this.nome, {Key? key}) : super(key: key);
+  const Task(this.nome, this.img, {Key? key}) : super(key: key);
 
   @override
   State<Task> createState() => _TaskState();
@@ -64,6 +76,10 @@ class _TaskState extends State<Task> {
                         color: Colors.black26,
                         width: 72,
                         height: 100,
+                        child: Image.network(
+                          widget.img,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       Container(
                         width: 200,
@@ -89,8 +105,12 @@ class _TaskState extends State<Task> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Icon(Icons.arrow_drop_up),
-                                Text('UP', style: TextStyle(fontSize: 12),)
-                              ],)),
+                                Text(
+                                  'UP',
+                                  style: TextStyle(fontSize: 12),
+                                )
+                              ],
+                            )),
                       )
                     ],
                   ),
