@@ -15,12 +15,37 @@ class Task extends StatefulWidget {
 }
 
 class _TaskState extends State<Task> {
-  int nivel = 1;
+  int nivel = 0;
+  int nivelMax = 10;
+  int nivelColor = 0;
+
+  List listColors = [
+    Colors.blue,
+    Colors.green,
+    Colors.grey,
+    Colors.purple,
+    Colors.black,
+    Colors.red,
+    Colors.pinkAccent,
+  ];
 
   void upNivel() {
-    setState(() {
+    if (nivel < (widget.dificuldade * nivelMax)) {
       nivel++;
-    });
+    } else {
+      nivel = 1;
+      if (nivelColor < listColors.length - 1) {
+        nivelColor++;
+      } else {
+        nivelColor = 0;
+      }
+    }
+  }
+
+  double incrementProgressBar() {
+    return (widget.dificuldade > 0)
+        ? (nivel / (widget.dificuldade * nivelMax))
+        : 0;
   }
 
   @override
@@ -83,7 +108,11 @@ class _TaskState extends State<Task> {
                       height: 52,
                       width: 52,
                       child: ElevatedButton(
-                          onPressed: upNivel,
+                          onPressed: () {
+                            setState(() {
+                              upNivel();
+                            });
+                          },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -99,29 +128,30 @@ class _TaskState extends State<Task> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: SizedBox(
-                      child: LinearProgressIndicator(
-                        color: Colors.white,
-                        value: (widget.dificuldade > 0)
-                            ? ((nivel / widget.dificuldade) / 10)
-                            : 1,
+              Container(
+                color: listColors[nivelColor],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: SizedBox(
+                        child: LinearProgressIndicator(
+                          color: Colors.white,
+                          value: incrementProgressBar(),
+                        ),
+                        width: 200,
                       ),
-                      width: 200,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Text(
-                      'Nivel $nivel',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        'Nivel $nivel',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )
             ],
           )
