@@ -15,7 +15,14 @@ class Task extends StatefulWidget {
 }
 
 class _TaskState extends State<Task> {
-  int nivel = 0;
+  int nivel = 1;
+
+  void upNivel() {
+    setState(() {
+      nivel++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -59,11 +66,11 @@ class _TaskState extends State<Task> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
+                        SizedBox(
                           width: 200,
                           child: Text(
                             widget.nome,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -72,19 +79,15 @@ class _TaskState extends State<Task> {
                         Difficulty(difficultLevel: widget.dificuldade),
                       ],
                     ),
-                    Container(
+                    SizedBox(
                       height: 52,
                       width: 52,
                       child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              nivel++;
-                            });
-                          },
+                          onPressed: upNivel,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
+                            children: const [
                               Icon(Icons.arrow_drop_up),
                               Text(
                                 'UP',
@@ -101,18 +104,18 @@ class _TaskState extends State<Task> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Container(
+                    child: SizedBox(
                       child: LinearProgressIndicator(
                         color: Colors.white,
                         value: (widget.dificuldade > 0)
-                            ? (nivel / widget.dificuldade) / 10
+                            ? ((nivel / widget.dificuldade) / 10)
                             : 1,
                       ),
                       width: 200,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     child: Text(
                       'Nivel $nivel',
                       style: TextStyle(color: Colors.white, fontSize: 16),

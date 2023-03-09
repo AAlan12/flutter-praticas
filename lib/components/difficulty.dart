@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Difficulty extends StatelessWidget {
   final int difficultLevel;
+
   const Difficulty({
     required this.difficultLevel,
     Key? key,
